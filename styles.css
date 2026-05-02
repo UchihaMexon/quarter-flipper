@@ -91,7 +91,7 @@ button {
   filter: blur(104px);
   opacity: 0;
   transform: scale(1.08) rotate(0deg);
-  transition: opacity 260ms ease-out;
+  transition: opacity 720ms ease;
 }
 
 body.is-flipping .coin-app::before {
