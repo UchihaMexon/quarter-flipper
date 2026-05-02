@@ -35,6 +35,11 @@ function playClickSound() {
   clickSound.play().catch(() => {});
 }
 
+function setCursorLoaderPosition(event) {
+  document.body.style.setProperty("--cursor-x", `${event.clientX}px`);
+  document.body.style.setProperty("--cursor-y", `${event.clientY}px`);
+}
+
 function flipCoin() {
   const flipTime = getFlipTime();
   if (!clickSoundStarted) {
@@ -82,4 +87,6 @@ flipButton.addEventListener("pointerdown", () => {
   clickSoundStarted = true;
 });
 
+document.addEventListener("pointermove", setCursorLoaderPosition);
+flipButton.addEventListener("pointerdown", setCursorLoaderPosition);
 flipButton.addEventListener("click", flipCoin);
