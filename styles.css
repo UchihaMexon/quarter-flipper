@@ -44,12 +44,6 @@ body {
     linear-gradient(135deg, #fbf7ef 0%, var(--bg) 48%, #e9ddca 100%);
 }
 
-body.is-flipping {
-  background:
-    radial-gradient(circle at 50% 22%, rgba(255, 255, 255, 0.86), transparent 34rem),
-    linear-gradient(135deg, #fbf7ef 0%, #f5efe4 48%, #eadfcc 100%);
-}
-
 button {
   font: inherit;
 }
@@ -91,12 +85,11 @@ button {
   filter: blur(104px);
   opacity: 0;
   transform: scale(1.08) rotate(0deg);
-  transition: opacity 720ms ease;
+  transition: opacity 900ms ease-in-out;
 }
 
 body.is-flipping .coin-app::before {
-  opacity: 0.78;
-  animation: casino-glow var(--flip-time) ease-in-out infinite;
+  opacity: 0.72;
 }
 
 .flipper {
@@ -558,10 +551,6 @@ h1:hover::after {
   .coin.is-flipping {
     animation: none;
     transition-duration: 1ms;
-  }
-
-  body.is-flipping .coin-app::before {
-    animation: none;
   }
 
   h1,
