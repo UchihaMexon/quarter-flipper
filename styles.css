@@ -266,6 +266,18 @@ h1:hover::after {
   animation: result-pop 180ms ease-out;
 }
 
+.result-side {
+  display: inline-block;
+  padding: 2px 8px 3px;
+  border-radius: 999px;
+  color: #f7fff9;
+  background: var(--button);
+  box-shadow:
+    0 2px 0 var(--button-deep),
+    0 8px 18px rgba(21, 128, 61, 0.24);
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.22);
+}
+
 .flip-button {
   position: relative;
   width: 98px;
