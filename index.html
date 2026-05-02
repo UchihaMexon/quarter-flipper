@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Coin Flipper</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="coin-app" aria-labelledby="page-title">
+      <section class="flipper" aria-live="polite" aria-label="Coin flipper">
+        <h1 id="page-title">Quarter Flipper</h1>
+
+        <div class="coin-scene" aria-hidden="true">
+          <div class="coin" id="coin">
+            <div class="coin-face coin-heads">
+              <img src="assets/coin-heads-clean.png" alt="" />
+            </div>
+            <div class="coin-face coin-tails">
+              <img src="assets/coin-tails-clean.png" alt="" />
+            </div>
+          </div>
+        </div>
+
+        <p class="result" id="result">Press the button.</p>
+        <button class="flip-button" id="flipButton" type="button" aria-label="Flip coin">
+          <span class="button-shade" aria-hidden="true"></span>
+          <span class="button-glint" aria-hidden="true"></span>
+          <span class="button-content">
+            <svg class="button-icon" aria-hidden="true" viewBox="0 0 24 24">
+              <path d="M13 2 4 14h7l-1 8 10-13h-7l0-7Z" />
+            </svg>
+            <span class="sr-only">Flip</span>
+          </span>
+        </button>
+
+        <fieldset class="duration-control" aria-label="Choose spin time">
+          <legend>Spin time</legend>
+          <label>
+            <input type="radio" name="duration" value="3000" checked />
+            <span>3 sec</span>
+          </label>
+          <label>
+            <input type="radio" name="duration" value="5000" />
+            <span>5 sec</span>
+          </label>
+          <label>
+            <input type="radio" name="duration" value="8000" />
+            <span>8 sec</span>
+          </label>
+          <label>
+            <input type="radio" name="duration" value="10000" />
+            <span>10 sec</span>
+          </label>
+        </fieldset>
+      </section>
+    </main>
+
+    <audio id="clickSound" src="assets/button-press.wav" preload="auto"></audio>
+    <script src="app.js"></script>
+  </body>
+</html>

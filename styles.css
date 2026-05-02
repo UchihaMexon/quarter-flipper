@@ -1,0 +1,421 @@
+@font-face {
+  font-family: "Fugaz One";
+  src: url("assets/fonts/Fugaz_One/FugazOne-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --bg: #f7f1e7;
+  --ink: #1f2522;
+  --muted: #5e6b66;
+  --coin: #c7cbd0;
+  --coin-deep: #767d86;
+  --coin-bright: #f8fafc;
+  --surface: rgba(255, 251, 242, 0.74);
+  --line: rgba(31, 37, 34, 0.12);
+  --button: #15803d;
+  --button-deep: #064e3b;
+  --button-hover: #16a34a;
+  --button-text: #ffffff;
+  --ring: rgba(34, 197, 94, 0.42);
+  --shadow: 0 28px 70px rgba(31, 37, 34, 0.22);
+  --flip-time: 1000ms;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  color: var(--ink);
+  font-family: "Fugaz One", "Trebuchet MS", Verdana, sans-serif;
+  background:
+    radial-gradient(circle at 58% 24%, rgba(255, 255, 255, 0.78), transparent 31rem),
+    radial-gradient(circle at 16% 70%, rgba(255, 205, 93, 0.18), transparent 26rem),
+    linear-gradient(135deg, #fbf7ef 0%, var(--bg) 48%, #e9ddca 100%);
+}
+
+body.is-flipping {
+  background:
+    radial-gradient(circle at 50% 22%, rgba(255, 255, 255, 0.86), transparent 34rem),
+    linear-gradient(135deg, #fbf7ef 0%, #f5efe4 48%, #eadfcc 100%);
+}
+
+button {
+  font: inherit;
+}
+
+.coin-app {
+  position: relative;
+  overflow: hidden;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+.coin-app::before {
+  content: "";
+  position: fixed;
+  inset: -32vmax;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    conic-gradient(
+      from 110deg,
+      rgba(255, 196, 65, 0.19),
+      rgba(229, 35, 68, 0.13),
+      rgba(42, 137, 255, 0.13),
+      rgba(236, 68, 183, 0.1),
+      rgba(255, 220, 116, 0.18),
+      rgba(22, 122, 99, 0.1),
+      rgba(255, 196, 65, 0.19)
+    );
+  filter: blur(104px);
+  opacity: 0;
+  transform: scale(1.08) rotate(0deg);
+  transition: opacity 260ms ease-out;
+}
+
+body.is-flipping .coin-app::before {
+  opacity: 0.78;
+  animation: casino-glow var(--flip-time) ease-in-out infinite;
+}
+
+.flipper {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 440px);
+  display: grid;
+  justify-items: center;
+  gap: 20px;
+  text-align: center;
+}
+
+.eyebrow {
+  margin: 0;
+  color: #9d2432;
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 0;
+  max-width: 9ch;
+  font-size: clamp(1.55rem, 5.5vw, 2.35rem);
+  font-weight: 400;
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+
+.coin-scene {
+  position: relative;
+  width: min(68vw, 240px);
+  aspect-ratio: 1;
+  perspective: 760px;
+  filter:
+    drop-shadow(0 18px 18px rgba(31, 37, 34, 0.18))
+    drop-shadow(var(--shadow));
+}
+
+.coin {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transform: rotateY(var(--coin-rotation, 0deg));
+  transition: transform var(--flip-time) cubic-bezier(0.12, 0.86, 0.18, 1);
+}
+
+.coin::before {
+  content: none;
+}
+
+.coin-face {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  color: #30363d;
+  font-size: clamp(1.2rem, 5vw, 1.85rem);
+  font-weight: 700;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(4px);
+  background: transparent;
+  box-shadow: none;
+  overflow: hidden;
+}
+
+.coin-face img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.coin-face img {
+  opacity: 1;
+}
+
+.coin-tails {
+  transform: rotateY(180deg) translateZ(4px);
+}
+
+.coin.is-flipping {
+  animation: coin-pop var(--flip-time) cubic-bezier(0.12, 0.86, 0.18, 1);
+}
+
+.result {
+  min-height: 1.5em;
+  margin: 0;
+  color: var(--muted);
+  font-size: 1.05rem;
+}
+
+.result.is-pop {
+  animation: result-pop 180ms ease-out;
+}
+
+.flip-button {
+  position: relative;
+  width: 98px;
+  min-height: 78px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-bottom: 8px solid var(--button-deep);
+  border-radius: 24px;
+  color: var(--button-text);
+  background: var(--button);
+  box-shadow: 0 18px 30px -12px rgba(21, 128, 61, 0.76);
+  cursor: pointer;
+  overflow: hidden;
+  transition:
+    background 160ms ease,
+    box-shadow 160ms ease,
+    border-bottom-width 110ms ease,
+    transform 110ms ease;
+}
+
+.flip-button:hover {
+  background: var(--button-hover);
+  box-shadow: 0 22px 38px -13px rgba(22, 163, 74, 0.86);
+  transform: translateY(-2px);
+}
+
+.flip-button:active {
+  border-bottom-width: 0;
+  transform: translateY(8px);
+}
+
+.flip-button:focus-visible {
+  outline: 4px solid var(--ring);
+  outline-offset: 6px;
+}
+
+.flip-button:disabled {
+  cursor: wait;
+  opacity: 0.72;
+}
+
+.button-shade {
+  position: absolute;
+  inset: 0;
+  border-radius: 24px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.24), transparent);
+}
+
+.button-glint {
+  position: absolute;
+  top: 12px;
+  left: 16px;
+  width: 28px;
+  height: 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.45);
+  filter: blur(2px);
+}
+
+.button-content {
+  position: relative;
+  display: grid;
+  place-items: center;
+  filter: drop-shadow(0 3px 4px rgba(7, 70, 35, 0.28));
+}
+
+.button-icon {
+  width: 34px;
+  height: 34px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2.2;
+  animation: icon-pulse 1.4s ease-in-out infinite;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.duration-control {
+  width: min(100%, 330px);
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 7px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.duration-control legend {
+  grid-column: 1 / -1;
+  margin-bottom: 3px;
+  color: var(--muted);
+  font-size: 0.85rem;
+  font-weight: 400;
+}
+
+.duration-control label {
+  min-width: 0;
+}
+
+.duration-control input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.duration-control span {
+  min-height: 38px;
+  display: grid;
+  place-items: center;
+  border: 2px solid rgba(21, 61, 54, 0.2);
+  border-radius: 999px;
+  color: #26332f;
+  background: rgba(255, 249, 237, 0.5);
+  cursor: pointer;
+  font-size: 0.92rem;
+  font-weight: 400;
+  white-space: nowrap;
+  transition:
+    border-color 150ms ease,
+    background 150ms ease,
+    color 150ms ease,
+    transform 150ms ease;
+}
+
+.duration-control input:checked + span {
+  border-color: #16483d;
+  color: var(--button-text);
+  background: #16483d;
+}
+
+.duration-control input:focus-visible + span {
+  outline: 4px solid var(--ring);
+  outline-offset: 4px;
+}
+
+.duration-control input:disabled + span {
+  cursor: wait;
+  opacity: 0.62;
+}
+
+.duration-control span:hover {
+  transform: translateY(-1px);
+}
+
+@keyframes coin-pop {
+  0% {
+    scale: 1;
+    translate: 0 0;
+  }
+  28% {
+    scale: 1.06;
+    translate: 0 -22px;
+  }
+  68% {
+    scale: 0.98;
+    translate: 0 5px;
+  }
+  100% {
+    scale: 1;
+    translate: 0 0;
+  }
+}
+
+@keyframes result-pop {
+  0% {
+    scale: 0.98;
+    opacity: 0.68;
+    translate: 0 -4px;
+  }
+  100% {
+    scale: 1;
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@keyframes icon-pulse {
+  0%,
+  100% {
+    scale: 1;
+  }
+  50% {
+    scale: 1.08;
+  }
+}
+
+@keyframes casino-glow {
+  0% {
+    transform: scale(1.08) rotate(0deg);
+  }
+  50% {
+    transform: scale(1.14) rotate(9deg);
+  }
+  100% {
+    transform: scale(1.08) rotate(0deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .coin,
+  .coin.is-flipping {
+    animation: none;
+    transition-duration: 1ms;
+  }
+
+  body.is-flipping .coin-app::before {
+    animation: none;
+  }
+}
+
+@media (max-width: 420px) {
+  .coin-app {
+    padding: 18px;
+  }
+
+  .flipper {
+    gap: 18px;
+  }
+}
