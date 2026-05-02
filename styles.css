@@ -310,7 +310,7 @@ h1:hover::after {
 }
 
 .flip-button:disabled {
-  cursor: wait;
+  cursor: pointer;
   opacity: 0.72;
 }
 
@@ -348,6 +348,24 @@ h1:hover::after {
   stroke-linejoin: round;
   stroke-width: 2.2;
   animation: icon-pulse 1.4s ease-in-out infinite;
+}
+
+.button-loader {
+  display: none;
+  width: 34px;
+  height: 34px;
+  border: 6px solid rgba(221, 221, 221, 0.72);
+  border-top-color: #46c380;
+  border-radius: 50%;
+  animation: loading 0.75s ease-out infinite;
+}
+
+.flip-button:disabled .button-icon {
+  display: none;
+}
+
+.flip-button:disabled .button-loader {
+  display: block;
 }
 
 .sr-only {
@@ -422,7 +440,7 @@ h1:hover::after {
 }
 
 .duration-control input:disabled + span {
-  cursor: wait;
+  cursor: default;
   opacity: 0.62;
 }
 
@@ -469,6 +487,15 @@ h1:hover::after {
   }
   50% {
     scale: 1.08;
+  }
+}
+
+@keyframes loading {
+  from {
+    transform: rotate(0turn);
+  }
+  to {
+    transform: rotate(1turn);
   }
 }
 
