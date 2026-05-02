@@ -61,7 +61,7 @@ function flipCoin() {
   });
 
   window.setTimeout(() => {
-    result.innerHTML = `It landed on <span class="result-side">${side.label}</span>.`;
+    result.innerHTML = `It landed on <span class="result-side">${side.label}</span>`;
     result.classList.add("is-pop");
     coin.classList.remove("is-flipping");
     document.body.classList.remove("is-flipping");
