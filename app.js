@@ -8,6 +8,7 @@ const clickSound = document.querySelector("#clickSound");
 const resultSound = document.querySelector("#resultSound");
 let clickSoundStarted = false;
 let soundEnabled = localStorage.getItem("quarterFlipperSound") !== "off";
+const soundVolume = 0.8;
 
 const sides = [
   {
@@ -41,6 +42,7 @@ function playSound(sound) {
     return;
   }
 
+  sound.volume = soundVolume;
   sound.currentTime = 0;
   sound.play().catch(() => {});
 }
