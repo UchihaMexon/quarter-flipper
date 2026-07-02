@@ -1,4 +1,5 @@
 const coin = document.querySelector("#coin");
+const coinScene = document.querySelector(".coin-scene");
 const result = document.querySelector("#result");
 const flipButton = document.querySelector("#flipButton");
 const soundButton = document.querySelector("#soundButton");
@@ -14,12 +15,12 @@ const sides = [
   {
     label: "Heads",
     sideOffset: 0,
-    image: "assets/coin-heads-clean.png",
+    image: "assets/coin-heads.webp",
   },
   {
     label: "Tails",
     sideOffset: 180,
-    image: "assets/coin-tails-clean.png",
+    image: "assets/coin-tails.webp",
   },
 ];
 
@@ -82,12 +83,13 @@ function flipCoin() {
   result.textContent = "Flipping...";
 
   const side = sides[Math.floor(Math.random() * sides.length)];
-  const fullSpins = Math.max(5, Math.round(flipTime / 260)) + Math.floor(Math.random() * 3);
+  const fullSpins = Math.max(5, Math.round(flipTime / 480)) + Math.floor(Math.random() * 3);
   const currentSideOffset = ((currentRotation % 360) + 360) % 360;
   const sideAdjustment = (side.sideOffset - currentSideOffset + 360) % 360;
   currentRotation += fullSpins * 360 + sideAdjustment;
 
   requestAnimationFrame(() => {
+    coinScene.classList.add("is-flipping");
     coin.classList.add("is-flipping");
     coin.style.setProperty("--flip-time", `${flipTime}ms`);
     coin.style.setProperty("--coin-rotation", `${currentRotation}deg`);
@@ -97,11 +99,11 @@ function flipCoin() {
     result.innerHTML = `It landed on <span class="result-side">${side.label}</span>`;
     result.classList.add("is-pop");
     playSound(resultSound);
+    coinScene.classList.remove("is-flipping");
     coin.classList.remove("is-flipping");
     document.body.classList.remove("is-flipping");
     flipButton.disabled = false;
     setDurationDisabled(false);
-    flipButton.focus();
   }, flipTime);
 }
 
@@ -114,6 +116,7 @@ function resetCoin() {
   stopSound(resultSound);
   result.classList.remove("is-pop");
   result.textContent = "Press the button.";
+  coinScene.classList.remove("is-flipping");
   coin.classList.remove("is-flipping");
   coin.style.setProperty("--flip-time", "420ms");
   coin.style.setProperty("--coin-rotation", "0deg");

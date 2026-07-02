@@ -3,7 +3,9 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Coin Flipper</title>
+    <title>Flipycoin</title>
+    <link rel="preload" href="assets/coin-heads.webp" as="image" type="image/webp" />
+    <link rel="preload" href="assets/coin-tails.webp" as="image" type="image/webp" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -14,10 +16,16 @@
         <div class="coin-scene" aria-hidden="true">
           <div class="coin" id="coin">
             <div class="coin-face coin-heads">
-              <img src="assets/coin-heads-clean.png" alt="" draggable="false" />
+              <picture>
+                <source srcset="assets/coin-heads.webp" type="image/webp" />
+                <img src="assets/coin-heads-clean.png" alt="" width="640" height="640" draggable="false" />
+              </picture>
             </div>
             <div class="coin-face coin-tails">
-              <img src="assets/coin-tails-clean.png" alt="" draggable="false" />
+              <picture>
+                <source srcset="assets/coin-tails.webp" type="image/webp" />
+                <img src="assets/coin-tails-clean.png" alt="" width="640" height="640" draggable="false" />
+              </picture>
             </div>
           </div>
         </div>
