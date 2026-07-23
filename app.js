@@ -115,7 +115,7 @@ function resetCoin() {
   currentRotation = 0;
   stopSound(resultSound);
   result.classList.remove("is-pop");
-  result.textContent = "Press the button.";
+  result.textContent = "Flip a U.S. quarter. Heads or Tails?";
   coinScene.classList.remove("is-flipping");
   coin.classList.remove("is-flipping");
   coin.style.setProperty("--flip-time", "420ms");

@@ -3,14 +3,51 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Flipycoin</title>
+    <title>Flipycoin | Free Online Coin Flip</title>
+    <meta
+      name="description"
+      content="Flip a U.S. quarter online with smooth animation, sound, and instant Heads or Tails results. A free coin flipper for quick decisions."
+    />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#15803d" />
+    <meta name="application-name" content="Flipycoin" />
+    <link rel="canonical" href="https://www.flipycoin.com/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Flipycoin" />
+    <meta property="og:url" content="https://www.flipycoin.com/" />
+    <meta property="og:title" content="Flipycoin | Free Online Coin Flip" />
+    <meta
+      property="og:description"
+      content="Flip a U.S. quarter online with smooth animation, sound, and instant Heads or Tails results."
+    />
+    <meta property="og:image" content="https://www.flipycoin.com/assets/coin-heads-clean.png" />
+    <meta property="og:image:alt" content="A United States quarter showing heads" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Flipycoin | Free Online Coin Flip" />
+    <meta
+      name="twitter:description"
+      content="Flip a U.S. quarter online with smooth animation, sound, and instant Heads or Tails results."
+    />
+    <meta name="twitter:image" content="https://www.flipycoin.com/assets/coin-heads-clean.png" />
     <link rel="preload" href="assets/coin-heads.webp" as="image" type="image/webp" />
     <link rel="preload" href="assets/coin-tails.webp" as="image" type="image/webp" />
     <link rel="stylesheet" href="styles.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Flipycoin",
+        "url": "https://www.flipycoin.com/",
+        "description": "A free online coin flipper that flips a U.S. quarter and returns Heads or Tails.",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Web",
+        "isAccessibleForFree": true
+      }
+    </script>
   </head>
   <body>
     <main class="coin-app" aria-labelledby="page-title">
-      <section class="flipper" aria-live="polite" aria-label="Coin flipper">
+      <section class="flipper" aria-label="Coin flipper">
         <h1 id="page-title">Quarter Flipper</h1>
 
         <div class="coin-scene" aria-hidden="true">
@@ -30,7 +67,9 @@
           </div>
         </div>
 
-        <p class="result" id="result">Press the button.</p>
+        <p class="result" id="result" role="status" aria-live="polite" aria-atomic="true">
+          Flip a U.S. quarter. Heads or Tails?
+        </p>
         <button class="flip-button" id="flipButton" type="button" aria-label="Flip coin">
           <span class="button-shade" aria-hidden="true"></span>
           <span class="button-glint" aria-hidden="true"></span>
