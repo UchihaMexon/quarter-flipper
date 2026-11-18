@@ -6,10 +6,10 @@
     <title>Flipycoin | Free Online Coin Flip</title>
     <meta
       name="description"
-      content="Flip a U.S. quarter online with smooth animation, sound, and instant Heads or Tails results. A free coin flipper for quick decisions."
+      content="Flip a U.S. quarter online for a random heads or tails result. A free coin flipper with adjustable spin time and optional sound."
     />
     <meta name="robots" content="index, follow" />
-    <meta name="theme-color" content="#15803d" />
+    <meta name="theme-color" content="#f8faf7" />
     <meta name="application-name" content="Flipycoin" />
     <link rel="canonical" href="https://www.flipycoin.com/" />
     <meta property="og:type" content="website" />
@@ -18,7 +18,7 @@
     <meta property="og:title" content="Flipycoin | Free Online Coin Flip" />
     <meta
       property="og:description"
-      content="Flip a U.S. quarter online with smooth animation, sound, and instant Heads or Tails results."
+      content="Flip a U.S. quarter online for a random heads or tails result. A free coin flipper with adjustable spin time and optional sound."
     />
     <meta property="og:image" content="https://www.flipycoin.com/assets/coin-heads-clean.png" />
     <meta property="og:image:alt" content="A United States quarter showing heads" />
@@ -26,7 +26,7 @@
     <meta name="twitter:title" content="Flipycoin | Free Online Coin Flip" />
     <meta
       name="twitter:description"
-      content="Flip a U.S. quarter online with smooth animation, sound, and instant Heads or Tails results."
+      content="Flip a U.S. quarter online for a random heads or tails result. A free coin flipper with adjustable spin time and optional sound."
     />
     <meta name="twitter:image" content="https://www.flipycoin.com/assets/coin-heads-clean.png" />
     <link rel="preload" href="assets/coin-heads.webp" as="image" type="image/webp" />
@@ -46,20 +46,18 @@
     </script>
   </head>
   <body>
-    <main class="coin-app" aria-labelledby="page-title">
-      <section class="flipper" aria-label="Coin flipper">
-        <h1 id="page-title">Quarter Flipper</h1>
+    <main class="coin-app">
+      <section class="flipper" aria-labelledby="page-title">
+        <h1 id="page-title">Heads or Tails</h1>
 
         <div class="coin-scene" aria-hidden="true">
-          <div class="coin" id="coin">
-            <div class="coin-face coin-heads">
-              <picture>
+          <div class="coin-view">
+            <div class="coin" id="coin">
+              <picture class="coin-face">
                 <source srcset="assets/coin-heads.webp" type="image/webp" />
                 <img src="assets/coin-heads-clean.png" alt="" width="640" height="640" draggable="false" />
               </picture>
-            </div>
-            <div class="coin-face coin-tails">
-              <picture>
+              <picture class="coin-face coin-tails">
                 <source srcset="assets/coin-tails.webp" type="image/webp" />
                 <img src="assets/coin-tails-clean.png" alt="" width="640" height="640" draggable="false" />
               </picture>
@@ -67,22 +65,10 @@
           </div>
         </div>
 
-        <p class="result" id="result" role="status" aria-live="polite" aria-atomic="true">
-          Flip a U.S. quarter. Heads or Tails?
-        </p>
-        <button class="flip-button" id="flipButton" type="button" aria-label="Flip coin">
-          <span class="button-shade" aria-hidden="true"></span>
-          <span class="button-glint" aria-hidden="true"></span>
-          <span class="button-content">
-            <svg class="button-icon" aria-hidden="true" viewBox="0 0 24 24">
-              <path d="M13 2 4 14h7l-1 8 10-13h-7l0-7Z" />
-            </svg>
-            <span class="sr-only">Flip</span>
-          </span>
-        </button>
+        <p class="result" id="result" role="status"></p>
 
-        <div class="action-controls" aria-label="Coin tools">
-          <button class="tool-button" id="soundButton" type="button" aria-pressed="false" aria-label="Turn sound off">
+        <div class="action-controls">
+          <button class="tool-button" id="soundButton" type="button" aria-pressed="false" aria-label="Mute sound" title="Mute sound">
             <svg class="tool-icon sound-on-icon" aria-hidden="true" viewBox="0 0 24 24">
               <path d="M4 9v6h4l5 4V5L8 9H4Z" />
               <path d="M16 8.5a5 5 0 0 1 0 7" />
@@ -90,11 +76,16 @@
             </svg>
             <svg class="tool-icon sound-off-icon" aria-hidden="true" viewBox="0 0 24 24">
               <path d="M4 9v6h4l5 4V5L8 9H4Z" />
-              <path d="m17 9 4 4" />
-              <path d="m21 9-4 4" />
+              <path d="m17 10 4 4m0-4-4 4" />
             </svg>
           </button>
-          <button class="tool-button" id="resetButton" type="button" aria-label="Reset coin">
+          <button class="flip-button" id="flipButton" type="button" aria-label="Flip coin" title="Flip coin">
+            <svg class="button-icon" aria-hidden="true" viewBox="0 0 24 24">
+              <path d="M13 2 4 14h7l-1 8 10-13h-7l0-7Z" />
+            </svg>
+            <span class="button-loader" aria-hidden="true"></span>
+          </button>
+          <button class="tool-button" id="resetButton" type="button" aria-label="Reset coin" title="Reset coin">
             <svg class="tool-icon" aria-hidden="true" viewBox="0 0 24 24">
               <path d="M20 12a8 8 0 1 1-2.34-5.66" />
               <path d="M20 4v6h-6" />
@@ -102,29 +93,31 @@
           </button>
         </div>
 
-        <fieldset class="duration-control" aria-label="Choose spin time">
+        <fieldset class="duration-control">
           <legend>Spin time</legend>
-          <label>
-            <input type="radio" name="duration" value="3000" checked />
-            <span>3 sec</span>
-          </label>
-          <label>
-            <input type="radio" name="duration" value="5000" />
-            <span>5 sec</span>
-          </label>
-          <label>
-            <input type="radio" name="duration" value="8000" />
-            <span>8 sec</span>
-          </label>
-          <label>
-            <input type="radio" name="duration" value="10000" />
-            <span>10 sec</span>
-          </label>
+          <div class="duration-options">
+            <label>
+              <input type="radio" name="duration" value="3000" checked />
+              <span>3 sec</span>
+            </label>
+            <label>
+              <input type="radio" name="duration" value="5000" />
+              <span>5 sec</span>
+            </label>
+            <label>
+              <input type="radio" name="duration" value="8000" />
+              <span>8 sec</span>
+            </label>
+            <label>
+              <input type="radio" name="duration" value="10000" />
+              <span>10 sec</span>
+            </label>
+          </div>
         </fieldset>
       </section>
     </main>
 
-    <span class="cursor-loader" aria-hidden="true"></span>
+    <span class="cursor-loader" id="cursorLoader" aria-hidden="true"></span>
     <audio id="clickSound" src="assets/click-positive.wav" preload="auto"></audio>
     <audio id="resultSound" src="assets/result-achievement.wav" preload="auto"></audio>
     <script src="app.js"></script>
